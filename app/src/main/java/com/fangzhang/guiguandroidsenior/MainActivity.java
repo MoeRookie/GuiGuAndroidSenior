@@ -21,7 +21,7 @@ import java.util.List;
  * 目前的问题是 :
  *    当我的第一个Fragment被替换成第二个Fragment时,第一个Fragment会被销毁
  *    当我的第二个Fragment被替换成第一个Fragment时,第一个Fragment会被重建
- *    所以会发生Fragment切换导致Fragment重新创建的问题
+ *    所以会发生Fragment切换导致Fragment重新创建的问题;
  * Created by Administrator on 2017/11/27.
  */
 public class MainActivity extends FragmentActivity {

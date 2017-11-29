@@ -18,12 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 目前的问题是 :
+ *    当我的第一个Fragment被替换成第二个Fragment时,第一个Fragment会被销毁
+ *    当我的第二个Fragment被替换成第一个Fragment时,第一个Fragment会被重建
+ *    所以会发生Fragment切换导致Fragment重新创建的问题
  * Created by Administrator on 2017/11/27.
  */
 public class MainActivity extends FragmentActivity {
     private RadioGroup mRgBottomTag;
     private List<BaseFragment> mFragmentList;
     private int position;
+    private Fragment mCurrentFragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,27 +61,41 @@ public class MainActivity extends FragmentActivity {
                 case R.id.rb_other:
                     position = 3;
                     break;
-                default:
-                    position = 0;
-                    break;
             }
             BaseFragment fragment = getFragment();
-            switchFragment(fragment);
+            switchFragment(mCurrentFragment,fragment);
         }
     };
 
     /**
      * 切换显示对应的Fragment
      */
-    private void switchFragment(BaseFragment fragment) {
-        // 得到FragmentManager
-        FragmentManager manager = getSupportFragmentManager();
-        // 开启事务
-        FragmentTransaction transaction = manager.beginTransaction();
-        // 替换显示
-        transaction.replace(R.id.fl_content,fragment);
-        // 提交事务
-        transaction.commit();
+    private void switchFragment(Fragment from, Fragment to) {
+        if (mCurrentFragment != to) {
+            // 将将要跳转到的Fragment设置为目前显示的Fragment
+            mCurrentFragment = to;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            // 先判断to有没有被添加过
+            if (!to.isAdded()) {
+                // 隐藏from
+                if (from != null) {
+                    transaction.hide(from);
+                }
+                // 添加to
+                if (to != null) {
+                    transaction.add(R.id.fl_content,to).commit();
+                }
+            } else {
+                // 隐藏from
+                if (from != null) {
+                    transaction.hide(from);
+                }
+                // 显示to
+                if (to != null) {
+                    transaction.show(to).commit();
+                }
+            }
+        }
     }
 
     /**
@@ -102,7 +121,9 @@ public class MainActivity extends FragmentActivity {
         mFragmentList.add(new OtherFragment());
         // 设置默认显示第一个Fragment
         mRgBottomTag.check(R.id.rb_common_frame);
-        switchFragment(getFragment());
+        mCurrentFragment = mFragmentList.get(0);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fl_content,mCurrentFragment).commit();
     }
 
     /**

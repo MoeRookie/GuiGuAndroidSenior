@@ -1,11 +1,11 @@
 package com.fangzhang.guiguandroidsenior.fragment;
 
-import android.graphics.Color;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ListView;
 
+import com.fangzhang.guiguandroidsenior.R;
+import com.fangzhang.guiguandroidsenior.adapter.CommonFrameAdapter;
 import com.fangzhang.guiguandroidsenior.base.BaseFragment;
 
 /**
@@ -14,21 +14,40 @@ import com.fangzhang.guiguandroidsenior.base.BaseFragment;
 
 public class CommonFragment extends BaseFragment {
     private static final String TAG = CommonFragment.class.getSimpleName();
-    private TextView mtvCommon;
+    private String[] mDatas;
+    private ListView mLvContents;
+    CommonFrameAdapter mAdapter;
     @Override
     protected View initView() {
         Log.e(TAG, "常用框架的页面被初始化了 . . .");
-        mtvCommon = new TextView(mContext);
-        mtvCommon.setGravity(Gravity.CENTER);
-        mtvCommon.setTextSize(20);
-        mtvCommon.setTextColor(Color.BLACK);
-        return mtvCommon;
+        View view = View.inflate(mContext, R.layout.fragment_common_frame, null);
+        mLvContents = view.findViewById(R.id.lvContent);
+        return view;
     }
 
     @Override
     protected void initData() {
-        super.initData();
         Log.e(TAG, "常用框架数据初始化了 . . .");
-        mtvCommon.setText("我是常用框架页面");
+        mDatas = new String[]{
+                "OKHttp",
+                "xUtils3",
+                "Retrofit2",
+                "Fresco",
+                "Glide",
+                "greenDao",
+                "RxJava",
+                "volley",
+                "Gson",
+                "FastJson",
+                "picasso",
+                "evenBus",
+                "jcvideoplayer",
+                "pulltorefresh",
+                "Expandablelistview",
+                "UniversalVideoView",
+                "....."
+        };
+        mAdapter = new CommonFrameAdapter(mContext, mDatas);
+        mLvContents.setAdapter(mAdapter);
     }
 }

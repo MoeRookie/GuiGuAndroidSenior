@@ -1,10 +1,13 @@
 package com.fangzhang.guiguandroidsenior.fragment;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.fangzhang.guiguandroidsenior.R;
+import com.fangzhang.guiguandroidsenior.activity.OkHttpActivity;
 import com.fangzhang.guiguandroidsenior.adapter.CommonFrameAdapter;
 import com.fangzhang.guiguandroidsenior.base.BaseFragment;
 
@@ -49,5 +52,15 @@ public class CommonFragment extends BaseFragment {
         };
         mAdapter = new CommonFrameAdapter(mContext, mDatas);
         mLvContents.setAdapter(mAdapter);
+        mLvContents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String contentTitle = mDatas[position];
+                if (contentTitle != null && contentTitle.toLowerCase().equals("okhttp")) {
+                    // 跳转到测试OkHttp功能的Activity
+                    startActivity(new Intent(getActivity(),OkHttpActivity.class));
+                }
+            }
+        });
     }
 }

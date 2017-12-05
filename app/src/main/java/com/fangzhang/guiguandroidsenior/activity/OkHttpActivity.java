@@ -1,5 +1,6 @@
 package com.fangzhang.guiguandroidsenior.activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -9,12 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fangzhang.guiguandroidsenior.R;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -45,6 +48,8 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
     private Button mbtnUploadFile;
     private ProgressBar mpb;
     private TextView mtvResult;
+    private ImageView mivAvatar;
+    private Button mbtnRequestImage;
     private OkHttpClient client = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -59,11 +64,14 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
         mbtnUploadFile = (Button) findViewById(R.id.btn_upload_file);
         mpb = (ProgressBar) findViewById(R.id.pb);
         mtvResult = (TextView) findViewById(R.id.tv_result);
+        mivAvatar = (ImageView) findViewById(R.id.iv_avatar);
+        mbtnRequestImage = (Button) findViewById(R.id.btn_request_image);
         mbtnGet.setOnClickListener(OkHttpActivity.this);
         mbtnPost.setOnClickListener(OkHttpActivity.this);
         mbtnOkUtils.setOnClickListener(OkHttpActivity.this);
         mbtnDownloadFile.setOnClickListener(OkHttpActivity.this);
         mbtnUploadFile.setOnClickListener(OkHttpActivity.this);
+        mbtnRequestImage.setOnClickListener(OkHttpActivity.this);
     }
     private Handler handler = new Handler(){
         @Override
@@ -105,6 +113,9 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btn_upload_file:
                 multiFileUpload();
+                break;
+            case R.id.btn_request_image:
+                getImage();
                 break;
         }
     }
@@ -306,5 +317,37 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
                 .params(params)//
                 .build()//
                 .execute(new MyStringCallback());
+    }
+
+    /**
+     * 请求一张图片
+     */
+    public void getImage()
+    {
+        mtvResult.setText("");
+        String url = "http://images.csdn.net/20150817/1.jpg";
+        OkHttpUtils
+                .get()//
+                .url(url)//
+                .tag(this)//
+                .build()//
+                .connTimeOut(20000)
+                .readTimeOut(20000)
+                .writeTimeOut(20000)
+                .execute(new BitmapCallback()
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+                        mtvResult.setText("onError:" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(Bitmap bitmap, int id)
+                    {
+                        Log.e("TAG", "onResponse：complete");
+                        mivAvatar.setImageBitmap(bitmap);
+                    }
+                });
     }
 }

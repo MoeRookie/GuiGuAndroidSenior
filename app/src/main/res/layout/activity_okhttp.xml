@@ -14,7 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="post请求" />
-
+    <Button
+        android:id="@+id/btn_ok_utils"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OkHttpUtils"/>
     <TextView
         android:id="@+id/tv_result"
         android:layout_width="match_parent"

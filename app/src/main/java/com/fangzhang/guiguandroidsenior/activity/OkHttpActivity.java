@@ -1,6 +1,7 @@
 package com.fangzhang.guiguandroidsenior.activity;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -8,13 +9,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fangzhang.guiguandroidsenior.R;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -35,6 +39,8 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
     private Button mbtnGet;
     private Button mbtnPost;
     private Button mbtnOkUtils;
+    private Button mbtnDownloadFile;
+    private ProgressBar mpb;
     private TextView mtvResult;
     private OkHttpClient client = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -46,10 +52,13 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
         mbtnGet = (Button) findViewById(R.id.btn_get);
         mbtnPost = (Button) findViewById(R.id.btn_post);
         mbtnOkUtils = (Button) findViewById(R.id.btn_ok_utils);
+        mbtnDownloadFile = (Button) findViewById(R.id.btn_download_file);
+        mpb = (ProgressBar) findViewById(R.id.pb);
         mtvResult = (TextView) findViewById(R.id.tv_result);
         mbtnGet.setOnClickListener(OkHttpActivity.this);
         mbtnPost.setOnClickListener(OkHttpActivity.this);
         mbtnOkUtils.setOnClickListener(OkHttpActivity.this);
+        mbtnDownloadFile.setOnClickListener(OkHttpActivity.this);
     }
     private Handler handler = new Handler(){
         @Override
@@ -85,6 +94,9 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btn_ok_utils:
                 OkPost();
+                break;
+            case R.id.btn_download_file:
+                downloadFile();
                 break;
         }
     }
@@ -224,5 +236,43 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
             Log.e(TAG, "inProgress:" + progress);
 //            mProgressBar.setProgress((int) (100 * progress));
         }
+    }
+
+    /**
+     * 下载大文件
+     */
+    public void downloadFile() {
+        String url = "http://vfx.mtime.cn/Video/2017/11/30/mp4/171130144059965058.mp4";
+        OkHttpUtils//
+                .get()//
+                .url(url)//
+                .build()//
+                .execute(new FileCallBack(Environment.getExternalStorageDirectory().getAbsolutePath(), "okhttp-utils-test.mp4")//
+                {
+
+                    @Override
+                    public void onBefore(Request request, int id)
+                    {
+                    }
+
+                    @Override
+                    public void inProgress(float progress, long total, int id)
+                    {
+                        mpb.setProgress((int) (100 * progress));
+                        Log.e(TAG, "inProgress :" + (int) (100 * progress));
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+                        Log.e(TAG, "onError :" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(File file, int id)
+                    {
+                        Log.e(TAG, "onResponse :" + file.getAbsolutePath());
+                    }
+                });
     }
 }

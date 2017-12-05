@@ -298,9 +298,11 @@ public class MainActivity extends AppCompatActivity
                 .execute(new MyStringCallback());
     }
 
-
-    public void downloadFile(View view)
-    {
+    /**
+     * 下载大文件
+     * @param view
+     */
+    public void downloadFile(View view) {
         String url = "https://github.com/hongyangAndroid/okhttp-utils/blob/master/okhttputils-2_4_1.jar?raw=true";
         OkHttpUtils//
                 .get()//

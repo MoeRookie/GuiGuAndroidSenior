@@ -7,6 +7,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.fangzhang.guiguandroidsenior.R;
+import com.fangzhang.guiguandroidsenior.bean.JsonBean;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Administrator on 2017/12/5.
@@ -55,6 +59,7 @@ public class NativeJsonParseActivity extends Activity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_json_to_java:
+                jsonToJava();
                 break;
             case R.id.btn_json_arr_to_java_list :
                 break;
@@ -63,5 +68,35 @@ public class NativeJsonParseActivity extends Activity implements View.OnClickLis
             case R.id.btn_native_special:
                 break;
         }
+    }
+
+    private void jsonToJava() {
+        // 获取或创建 JSON 数据
+        String json = "{\n" +
+                "\t\"id\":2, \"name\":\"大虾\", \n" +
+                "\t\"price\":12.3, \n" +
+                "\t\"imagePath\":\"http://192.168.10.165:8080/L05_Server/images/f1.jpg\"\n" +
+                "}\n";
+        // 转换为Json对象
+        JsonBean bean = null;
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            // 取出每个字段值
+            int id = jsonObject.getInt("id");
+            String name = jsonObject.optString("name");
+            double price = jsonObject.getDouble("price");
+            String imagePath = jsonObject.optString("imagePath");
+            // 创建并初始化Java对象
+            bean = new JsonBean();
+            bean.setId(id);
+            bean.setName(name);
+            bean.setPrice(price);
+            bean.setImagePath(imagePath);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // 显示数据
+        mtvNativeOriginal.setText(json);
+        mtvNativeLast.setText(bean.toString());
     }
 }

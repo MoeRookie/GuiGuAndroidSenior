@@ -20,6 +20,8 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -40,6 +42,7 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
     private Button mbtnPost;
     private Button mbtnOkUtils;
     private Button mbtnDownloadFile;
+    private Button mbtnUploadFile;
     private ProgressBar mpb;
     private TextView mtvResult;
     private OkHttpClient client = new OkHttpClient();
@@ -53,12 +56,14 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
         mbtnPost = (Button) findViewById(R.id.btn_post);
         mbtnOkUtils = (Button) findViewById(R.id.btn_ok_utils);
         mbtnDownloadFile = (Button) findViewById(R.id.btn_download_file);
+        mbtnUploadFile = (Button) findViewById(R.id.btn_upload_file);
         mpb = (ProgressBar) findViewById(R.id.pb);
         mtvResult = (TextView) findViewById(R.id.tv_result);
         mbtnGet.setOnClickListener(OkHttpActivity.this);
         mbtnPost.setOnClickListener(OkHttpActivity.this);
         mbtnOkUtils.setOnClickListener(OkHttpActivity.this);
         mbtnDownloadFile.setOnClickListener(OkHttpActivity.this);
+        mbtnUploadFile.setOnClickListener(OkHttpActivity.this);
     }
     private Handler handler = new Handler(){
         @Override
@@ -97,6 +102,9 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btn_download_file:
                 downloadFile();
+                break;
+            case R.id.btn_upload_file:
+                multiFileUpload();
                 break;
         }
     }
@@ -234,7 +242,7 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
         public void inProgress(float progress, long total, int id)
         {
             Log.e(TAG, "inProgress:" + progress);
-//            mProgressBar.setProgress((int) (100 * progress));
+            mpb.setProgress((int) (100 * progress));
         }
     }
 
@@ -274,5 +282,29 @@ public class OkHttpActivity extends AppCompatActivity implements View.OnClickLis
                         Log.e(TAG, "onResponse :" + file.getAbsolutePath());
                     }
                 });
+    }
+
+    /**
+     * 多文件上传
+     */
+    public void multiFileUpload() {
+        File file = new File(Environment.getExternalStorageDirectory(), "okhttp-utils-test.mp4");
+        Log.e(TAG, file.getAbsolutePath());
+//        File file2 = new File(Environment.getExternalStorageDirectory(), "test1#.txt");
+        if (!file.exists()) {
+            Toast.makeText(OkHttpActivity.this, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Map<String, String> params = new HashMap<>();
+        params.put("username", "李鹏鹏");
+        params.put("password", "123");
+        String url = "http://192.168.1.185:8080/FileUpload/FileUploadServlet";
+        OkHttpUtils.post()//
+                .addFile("mFile", "okhttp-utils-test.mp4", file)//
+//                .addFile("mFile", "test1.txt", file2)//
+                .url(url)
+                .params(params)//
+                .build()//
+                .execute(new MyStringCallback());
     }
 }

@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.fangzhang.guiguandroidsenior.R;
+import com.fangzhang.guiguandroidsenior.activity.NativeJsonParse;
 import com.fangzhang.guiguandroidsenior.activity.OkHttpActivity;
 import com.fangzhang.guiguandroidsenior.adapter.CommonFrameAdapter;
 import com.fangzhang.guiguandroidsenior.base.BaseFragment;
@@ -33,6 +34,9 @@ public class CommonFragment extends BaseFragment {
         Log.e(TAG, "常用框架数据初始化了 . . .");
         mDatas = new String[]{
                 "OKHttp",
+                "NativeJsonParse",
+                "Gson",
+                "FastJson",
                 "xUtils3",
                 "Retrofit2",
                 "Fresco",
@@ -40,8 +44,6 @@ public class CommonFragment extends BaseFragment {
                 "greenDao",
                 "RxJava",
                 "volley",
-                "Gson",
-                "FastJson",
                 "picasso",
                 "evenBus",
                 "jcvideoplayer",
@@ -58,7 +60,10 @@ public class CommonFragment extends BaseFragment {
                 String contentTitle = mDatas[position];
                 if (contentTitle != null && contentTitle.toLowerCase().equals("okhttp")) {
                     // 跳转到测试OkHttp功能的Activity
-                    startActivity(new Intent(getActivity(),OkHttpActivity.class));
+                    startActivity(new Intent(mContext,OkHttpActivity.class));
+                } else if (contentTitle != null && contentTitle.toLowerCase().equals("nativejsonparse")) {
+                    // 跳转到原生解析Json功能的Activity
+                    startActivity(new Intent(mContext, NativeJsonParse.class));
                 }
             }
         });

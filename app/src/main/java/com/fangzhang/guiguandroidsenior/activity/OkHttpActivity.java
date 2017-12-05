@@ -1,5 +1,6 @@
 package com.fangzhang.guiguandroidsenior.activity;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -37,7 +38,7 @@ import okhttp3.Response;
 /**
  * Created by Administrator on 2017/12/3.
  */
-public class OkHttpActivity extends AppCompatActivity implements View.OnClickListener{
+public class OkHttpActivity extends Activity implements View.OnClickListener{
     private static final String TAG = OkHttpActivity.class.getSimpleName();
     private static final int GET = 1;
     private static final int POST = 2;

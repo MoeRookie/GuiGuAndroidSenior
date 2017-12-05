@@ -9,8 +9,12 @@ import android.widget.TextView;
 import com.fangzhang.guiguandroidsenior.R;
 import com.fangzhang.guiguandroidsenior.bean.JsonBean;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/12/5.
@@ -62,12 +66,56 @@ public class NativeJsonParseActivity extends Activity implements View.OnClickLis
                 jsonToJava();
                 break;
             case R.id.btn_json_arr_to_java_list :
+                jsonArrToJavaList();
                 break;
             case R.id.btn_native_complex:
                 break;
             case R.id.btn_native_special:
                 break;
         }
+    }
+
+    private void jsonArrToJavaList() {
+        // 获取或创建 JSON 数据
+        String json = "[\n" +
+                "    {\n" +
+                "        \"id\": 1,\n" +
+                "        \"imagePath\": \"http://192.168.10.165:8080/f1.jpg\",\n" +
+                "        \"name\": \"大虾1\",\n" +
+                "        \"price\": 12.3\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"id\": 2,\n" +
+                "        \"imagePath\": \"http://192.168.10.165:8080/f2.jpg\",\n" +
+                "        \"name\": \"大虾2\",\n" +
+                "        \"price\": 12.5\n" +
+                "    }\n" +
+                "]";
+        // 转换为jsonArray对象
+        List<JsonBean> jsonBeanList = new ArrayList<>();
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONArray(json);
+            if (jsonArray != null) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    // 取出每个字段值
+                    int id = jsonObject.getInt("id");
+                    String name = jsonObject.optString("name");
+                    double price = jsonObject.getDouble("price");
+                    String imagePath = jsonObject.optString("imagePath");
+                    // 转换为Bean对象
+                    JsonBean jsonBean = new JsonBean(id, name, price, imagePath);
+                    jsonBeanList.add(jsonBean);
+                }
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // 显示数据
+        mtvNativeOriginal.setText(json);
+        mtvNativeLast.setText(jsonArray.toString());
     }
 
     private void jsonToJava() {

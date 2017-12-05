@@ -42,6 +42,7 @@ public class OkHttpActivity extends Activity implements View.OnClickListener{
     private static final String TAG = OkHttpActivity.class.getSimpleName();
     private static final int GET = 1;
     private static final int POST = 2;
+    private TextView mtvTitle;
     private Button mbtnGet;
     private Button mbtnPost;
     private Button mbtnOkUtils;
@@ -58,15 +59,17 @@ public class OkHttpActivity extends Activity implements View.OnClickListener{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_okhttp);
-        mbtnGet = (Button) findViewById(R.id.btn_get);
-        mbtnPost = (Button) findViewById(R.id.btn_post);
-        mbtnOkUtils = (Button) findViewById(R.id.btn_ok_utils);
-        mbtnDownloadFile = (Button) findViewById(R.id.btn_download_file);
-        mbtnUploadFile = (Button) findViewById(R.id.btn_upload_file);
-        mpb = (ProgressBar) findViewById(R.id.pb);
-        mtvResult = (TextView) findViewById(R.id.tv_result);
-        mivAvatar = (ImageView) findViewById(R.id.iv_avatar);
-        mbtnRequestImage = (Button) findViewById(R.id.btn_request_image);
+        mtvTitle = findViewById(R.id.tv_title);
+        mtvTitle.setText("OkHttp");
+        mbtnGet = findViewById(R.id.btn_get);
+        mbtnPost = findViewById(R.id.btn_post);
+        mbtnOkUtils = findViewById(R.id.btn_ok_utils);
+        mbtnDownloadFile = findViewById(R.id.btn_download_file);
+        mbtnUploadFile = findViewById(R.id.btn_upload_file);
+        mpb = findViewById(R.id.pb);
+        mtvResult = findViewById(R.id.tv_result);
+        mivAvatar = findViewById(R.id.iv_avatar);
+        mbtnRequestImage = findViewById(R.id.btn_request_image);
         mbtnGet.setOnClickListener(OkHttpActivity.this);
         mbtnPost.setOnClickListener(OkHttpActivity.this);
         mbtnOkUtils.setOnClickListener(OkHttpActivity.this);

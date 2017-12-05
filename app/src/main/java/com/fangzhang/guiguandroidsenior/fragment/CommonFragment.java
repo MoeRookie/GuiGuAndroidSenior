@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.fangzhang.guiguandroidsenior.R;
-import com.fangzhang.guiguandroidsenior.activity.NativeJsonParse;
+import com.fangzhang.guiguandroidsenior.activity.NativeJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.OkHttpActivity;
 import com.fangzhang.guiguandroidsenior.adapter.CommonFrameAdapter;
 import com.fangzhang.guiguandroidsenior.base.BaseFragment;
@@ -63,7 +63,7 @@ public class CommonFragment extends BaseFragment {
                     startActivity(new Intent(mContext,OkHttpActivity.class));
                 } else if (contentTitle != null && contentTitle.toLowerCase().equals("nativejsonparse")) {
                     // 跳转到原生解析Json功能的Activity
-                    startActivity(new Intent(mContext, NativeJsonParse.class));
+                    startActivity(new Intent(mContext, NativeJsonParseActivity.class));
                 }
             }
         });

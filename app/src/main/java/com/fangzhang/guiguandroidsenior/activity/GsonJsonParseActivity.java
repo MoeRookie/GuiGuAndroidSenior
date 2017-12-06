@@ -56,6 +56,7 @@ public class GsonJsonParseActivity extends Activity implements View.OnClickListe
                 jsonToJava();
                 break;
             case R.id.btn_json_arr_to_java_list:
+                jsonArrToJavaList();
                 break;
             case R.id.btn_java_to_json:
                 break;
@@ -64,6 +65,30 @@ public class GsonJsonParseActivity extends Activity implements View.OnClickListe
         }
     }
 
+    private void jsonArrToJavaList() {
+        // 获取或创建json数据
+        String json = "[\n" +
+                "    {\n" +
+                "        \"id\": 1,\n" +
+                "        \"imagePath\": \"http://192.168.10.165:8080/f1.jpg\",\n" +
+                "        \"name\": \"大虾1\",\n" +
+                "        \"price\": 12.3\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"id\": 2,\n" +
+                "        \"imagePath\": \"http://192.168.10.165:8080/f2.jpg\",\n" +
+                "        \"name\": \"大虾2\",\n" +
+                "        \"price\": 12.5\n" +
+                "    }\n" +
+                "]";
+        // json解析
+        Gson gson = new Gson();
+        List<JsonBean> jsonBeanList = gson.fromJson(json, new TypeToken<List<JsonBean>>() {
+        }.getType());
+        // 展示数据
+        mtvOriginal.setText(json);
+        mtvLast.setText(jsonBeanList.toString());
+    }
 
     private void jsonToJava() {
         // 获取或创建json数据

@@ -31,7 +31,7 @@
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/btn_java_arr_to_json_arr"
+        android:id="@+id/btn_java_list_to_json_arr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

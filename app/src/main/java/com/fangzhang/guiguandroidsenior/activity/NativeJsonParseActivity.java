@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.fangzhang.guiguandroidsenior.R;
 import com.fangzhang.guiguandroidsenior.bean.JsonBean;
 import com.fangzhang.guiguandroidsenior.bean.JsonBeanComplex;
+import com.fangzhang.guiguandroidsenior.bean.JsonBeanSpecial;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,8 +74,59 @@ public class NativeJsonParseActivity extends Activity implements View.OnClickLis
                 jsonToJavaOfComplex();
                 break;
             case R.id.btn_native_special:
+                jsonToJavaOfSpecial();
                 break;
         }
+    }
+
+    private void jsonToJavaOfSpecial() {
+        // 获取或创建 JSON 数据
+        String json = "{\n" +
+                "    \"code\": 0,\n" +
+                "    \"list\": {\n" +
+                "        \"0\": {\n" +
+                "            \"aid\": \"6008965\",\n" +
+                "            \"author\": \"哔哩哔哩番剧\",\n" +
+                "            \"coins\": 170,\n" +
+                "            \"copyright\": \"Copy\",\n" +
+                "            \"create\": \"2016-08-25 21:34\"\n" +
+                "        },\n" +
+                "        \"1\": {\n" +
+                "            \"aid\": \"6008938\",\n" +
+                "            \"author\": \"哔哩哔哩番剧\",\n" +
+                "            \"coins\": 404,\n" +
+                "            \"copyright\": \"Copy\",\n" +
+                "            \"create\": \"2016-08-25 21:33\"\n" +
+                "        }\n" +
+                "    }\n" +
+                "}";
+        // 解析json数据
+        // 封装java对象
+        JsonBeanSpecial jsonBeanSpecial = null;
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            // 第一层解析
+            int code = jsonObject.getInt("code");
+            JSONObject list = jsonObject.getJSONObject("list");
+            List<JsonBeanSpecial.FilmBean> filmBeanList = new ArrayList<>();
+            jsonBeanSpecial = new JsonBeanSpecial(code, filmBeanList);
+            // 第二层解析
+            for (int i = 0; i < list.length(); i++) {
+                JSONObject jsonObject1 = list.getJSONObject(String.valueOf(i));
+                String aid = jsonObject1.optString("aid");
+                String author = jsonObject1.optString("author");
+                int coins = jsonObject1.getInt("coins");
+                String copyright = jsonObject1.optString("copyright");
+                String create = jsonObject1.getString("create");
+                JsonBeanSpecial.FilmBean filmBean = new JsonBeanSpecial.FilmBean(aid,author,coins,copyright,create);
+                filmBeanList.add(filmBean);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // 显示数据
+        mtvNativeOriginal.setText(json);
+        mtvNativeLast.setText(jsonBeanSpecial.toString());
     }
 
     private void jsonToJavaOfComplex() {
@@ -127,10 +179,12 @@ public class NativeJsonParseActivity extends Activity implements View.OnClickLis
             // 第三层解析
             for (int i = 0; i < items.length(); i++) {
                 JSONObject jsonObject1 = items.getJSONObject(i);
-                int id = jsonObject1.getInt("id");
-                String title = jsonObject1.optString("title");
-                JsonBeanComplex.DataBean.ItemsBean itemsBean = new JsonBeanComplex.DataBean.ItemsBean(id, title);
-                itemList.add(itemsBean);
+                if (jsonObject1 != null) {
+                    int id = jsonObject1.getInt("id");
+                    String title = jsonObject1.optString("title");
+                    JsonBeanComplex.DataBean.ItemsBean itemsBean = new JsonBeanComplex.DataBean.ItemsBean(id, title);
+                    itemList.add(itemsBean);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

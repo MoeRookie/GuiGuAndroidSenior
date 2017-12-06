@@ -59,10 +59,23 @@ public class GsonJsonParseActivity extends Activity implements View.OnClickListe
                 jsonArrToJavaList();
                 break;
             case R.id.btn_java_to_json:
+                javaToJson();
                 break;
             case R.id.btn_java_list_to_json_arr:
+
                 break;
         }
+    }
+
+    private void javaToJson() {
+        // 新建或生成java对象
+        JsonBean bean = new JsonBean(101, "鲍鱼", 250.0, "fish.png");
+        // 生成json数据
+        Gson gson = new Gson();
+        String json = gson.toJson(bean);
+        // 显示数据
+        mtvOriginal.setText(bean.toString());
+        mtvLast.setText(json);
     }
 
     private void jsonArrToJavaList() {

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.fangzhang.guiguandroidsenior.R;
 import com.fangzhang.guiguandroidsenior.bean.JsonBean;
+import com.fangzhang.guiguandroidsenior.bean.JsonBeanComplex;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,10 +70,74 @@ public class NativeJsonParseActivity extends Activity implements View.OnClickLis
                 jsonArrToJavaList();
                 break;
             case R.id.btn_native_complex:
+                jsonToJavaOfComplex();
                 break;
             case R.id.btn_native_special:
                 break;
         }
+    }
+
+    private void jsonToJavaOfComplex() {
+        // 获取或创建json数据
+        String json = "{\n" +
+                "    \"data\": {\n" +
+                "        \"count\": 5,\n" +
+                "        \"items\": [\n" +
+                "            {\n" +
+                "                \"id\": 45,\n" +
+                "                \"title\": \"坚果\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"id\": 132,\n" +
+                "                \"title\": \"炒货\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"id\": 166,\n" +
+                "                \"title\": \"蜜饯\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"id\": 195,\n" +
+                "                \"title\": \"果脯\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"id\": 196,\n" +
+                "                \"title\": \"礼盒\"\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    \"rs_code\": \"1000\",\n" +
+                "    \"rs_msg\": \"success\"\n" +
+                "}";
+        // json解析
+        JsonBeanComplex jsonBeanComplex = null;
+        try {
+            // 第一层解析
+            JSONObject jsonObject = new JSONObject(json);
+            JSONObject data = jsonObject.getJSONObject("data");
+            String rs_code = jsonObject.optString("rs_code");
+            String rs_msg = jsonObject.optString("rs_msg");
+            JsonBeanComplex.DataBean dataBean = new JsonBeanComplex.DataBean();
+            jsonBeanComplex = new JsonBeanComplex(dataBean, rs_code, rs_msg);
+            // 第二层解析
+            int count = data.getInt("count");
+            JSONArray items = data.getJSONArray("items");
+            List<JsonBeanComplex.DataBean.ItemsBean> itemList = new ArrayList<>();
+            dataBean.setCount(count);
+            dataBean.setItems(itemList);
+            // 第三层解析
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject jsonObject1 = items.getJSONObject(i);
+                int id = jsonObject1.getInt("id");
+                String title = jsonObject1.optString("title");
+                JsonBeanComplex.DataBean.ItemsBean itemsBean = new JsonBeanComplex.DataBean.ItemsBean(id, title);
+                itemList.add(itemsBean);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // 显示数据
+        mtvNativeOriginal.setText(json);
+        mtvNativeLast.setText(jsonBeanComplex.toString());
     }
 
     private void jsonArrToJavaList() {

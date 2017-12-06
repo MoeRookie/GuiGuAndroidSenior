@@ -10,6 +10,8 @@ import com.fangzhang.guiguandroidsenior.R;
 import com.fangzhang.guiguandroidsenior.bean.JsonBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +46,7 @@ public class GsonJsonParseActivity extends Activity implements View.OnClickListe
         mbtnJsonToJava = findViewById(R.id.btn_json_to_java);
         mbtnJsonArrToJavaList = findViewById(R.id.btn_json_arr_to_java_list);
         mbtnJavaToJson = findViewById(R.id.btn_java_to_json);
-        mbtnJavaListToJsonArr = findViewById(R.id.btn_java_arr_to_json_arr);
+        mbtnJavaListToJsonArr = findViewById(R.id.btn_java_list_to_json_arr);
         mtvOriginal = findViewById(R.id.tv_gson_original);
         mtvLast = findViewById(R.id.tv_gson_last);
     }
@@ -62,9 +64,24 @@ public class GsonJsonParseActivity extends Activity implements View.OnClickListe
                 javaToJson();
                 break;
             case R.id.btn_java_list_to_json_arr:
-
+                javaListToJsonArr();
                 break;
         }
+    }
+
+    private void javaListToJsonArr() {
+        // 新建或获取java集合
+        List<JsonBean> jsonBeanList = new ArrayList<>();
+        JsonBean bean01 = new JsonBean(102, "巨蟹", 250, "juxie.png");
+        JsonBean bean02 = new JsonBean(103, "双鱼", 275, "shuangyu.png");
+        jsonBeanList.add(bean01);
+        jsonBeanList.add(bean02);
+        // 生成json数据
+        Gson gson = new Gson();
+        String json = gson.toJson(jsonBeanList);
+        // 显示数据
+        mtvOriginal.setText(jsonBeanList.toString());
+        mtvLast.setText(json);
     }
 
     private void javaToJson() {

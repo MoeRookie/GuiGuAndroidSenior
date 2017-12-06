@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.fangzhang.guiguandroidsenior.R;
+import com.fangzhang.guiguandroidsenior.activity.GsonJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.NativeJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.OkHttpActivity;
 import com.fangzhang.guiguandroidsenior.adapter.CommonFrameAdapter;
@@ -58,12 +59,17 @@ public class CommonFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String contentTitle = mDatas[position];
-                if (contentTitle != null && contentTitle.toLowerCase().equals("okhttp")) {
-                    // 跳转到测试OkHttp功能的Activity
-                    startActivity(new Intent(mContext,OkHttpActivity.class));
-                } else if (contentTitle != null && contentTitle.toLowerCase().equals("nativejsonparse")) {
-                    // 跳转到原生解析Json功能的Activity
-                    startActivity(new Intent(mContext, NativeJsonParseActivity.class));
+                if (contentTitle != null) {
+                    if (contentTitle.toLowerCase().equals("okhttp")) {
+                        // 跳转到测试OkHttp功能的Activity
+                        startActivity(new Intent(mContext,OkHttpActivity.class));
+                    } else if (contentTitle.toLowerCase().equals("nativejsonparse")) {
+                        // 跳转到原生解析Json功能的Activity
+                        startActivity(new Intent(mContext, NativeJsonParseActivity.class));
+                    } else if (contentTitle.toLowerCase().equals("gson")) {
+                        // 跳转到Json解析之Gson解析方式的Activity
+                        startActivity(new Intent(mContext,GsonJsonParseActivity.class));
+                    }
                 }
             }
         });

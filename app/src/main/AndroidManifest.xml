@@ -22,5 +22,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".activity.OkHttpActivity"/>
         <activity android:name=".activity.NativeJsonParseActivity"/>
+        <activity android:name=".activity.GsonJsonParseActivity"/>
     </application>
 </manifest>

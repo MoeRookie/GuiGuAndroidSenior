@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/titlebar"></include>
+
+    <Button
+        android:id="@+id/btn_json_to_java"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="将JSON对象转换为Java对象"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_json_arr_to_java_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="将JSON数组转换为Java集合"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_java_to_json"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="将Java对象转换为Json对象"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_java_arr_to_json_arr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="将Java集合转换为Json数组"
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="原始数据"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_gson_original"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="转换后的数据"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_gson_last"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

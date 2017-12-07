@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.fangzhang.guiguandroidsenior.R;
 import com.fangzhang.guiguandroidsenior.bean.JsonBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -63,9 +64,23 @@ public class FastJsonParseActivity extends Activity implements View.OnClickListe
                 javaToJson();
                 break;
             case R.id.btn_java_list_to_json_arr:
-//                javaListToJsonArr();
+                javaListToJsonArr();
                 break;
         }
+    }
+
+    private void javaListToJsonArr() {
+        // 创建java集合
+        List<JsonBean> jsonBeanList = new ArrayList<>();
+        JsonBean jsonBean01 = new JsonBean(105, "巨蟹", 250.0, "juxie.png");
+        JsonBean jsonBean02 = new JsonBean(106, "双鱼", 275.0, "shuangyu.png");
+        jsonBeanList.add(jsonBean01);
+        jsonBeanList.add(jsonBean02);
+        // 将其转换为json数组
+        String json = JSON.toJSONString(jsonBeanList);
+        // 显示数据
+        mtvOriginal.setText(jsonBeanList.toString());
+        mtvLast.setText(json);
     }
 
     private void javaToJson() {

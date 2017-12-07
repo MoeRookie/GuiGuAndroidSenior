@@ -10,6 +10,8 @@ import com.alibaba.fastjson.JSON;
 import com.fangzhang.guiguandroidsenior.R;
 import com.fangzhang.guiguandroidsenior.bean.JsonBean;
 
+import java.util.List;
+
 
 /**
  * Created by Administrator on 2017/12/7.
@@ -55,7 +57,7 @@ public class FastJsonParseActivity extends Activity implements View.OnClickListe
                 jsonToJava();
                 break;
             case R.id.btn_json_arr_to_java_list:
-//                jsonArrToJavaList();
+                jsonArrToJavaList();
                 break;
             case R.id.btn_java_to_json:
 //                javaToJson();
@@ -64,6 +66,29 @@ public class FastJsonParseActivity extends Activity implements View.OnClickListe
 //                javaListToJsonArr();
                 break;
         }
+    }
+
+    private void jsonArrToJavaList() {
+        // 获取或创建json数据
+        String json = "[\n" +
+                "    {\n" +
+                "        \"id\": 1,\n" +
+                "        \"imagePath\": \"http://192.168.10.165:8080/f1.jpg\",\n" +
+                "        \"name\": \"大虾1\",\n" +
+                "        \"price\": 12.3\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"id\": 2,\n" +
+                "        \"imagePath\": \"http://192.168.10.165:8080/f2.jpg\",\n" +
+                "        \"name\": \"大虾2\",\n" +
+                "        \"price\": 12.5\n" +
+                "    }\n" +
+                "]";
+        // 将json数据解析为java对象
+        List<JsonBean> jsonBeanList = JSON.parseArray(json, JsonBean.class);
+        // 显示数据
+        mtvOriginal.setText(json);
+        mtvLast.setText(jsonBeanList.toString());
     }
 
     private void jsonToJava() {

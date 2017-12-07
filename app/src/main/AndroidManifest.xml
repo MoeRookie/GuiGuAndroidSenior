@@ -23,5 +23,6 @@
         <activity android:name=".activity.OkHttpActivity"/>
         <activity android:name=".activity.NativeJsonParseActivity"/>
         <activity android:name=".activity.GsonJsonParseActivity"/>
+        <activity android:name=".activity.FastJsonParseActivity"/>
     </application>
 </manifest>

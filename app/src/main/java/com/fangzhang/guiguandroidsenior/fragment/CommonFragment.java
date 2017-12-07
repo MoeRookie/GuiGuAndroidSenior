@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.fangzhang.guiguandroidsenior.R;
+import com.fangzhang.guiguandroidsenior.activity.FastJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.GsonJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.NativeJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.OkHttpActivity;
@@ -69,6 +70,9 @@ public class CommonFragment extends BaseFragment {
                     } else if (contentTitle.toLowerCase().equals("gson")) {
                         // 跳转到Json解析之Gson解析方式的Activity
                         startActivity(new Intent(mContext,GsonJsonParseActivity.class));
+                    } else if (contentTitle.toLowerCase().equals("fastjson")) {
+                        // 跳转到Json解析之FastJson解析方式的Activity
+                        startActivity(new Intent(mContext,FastJsonParseActivity.class));
                     }
                 }
             }

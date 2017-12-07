@@ -60,12 +60,22 @@ public class FastJsonParseActivity extends Activity implements View.OnClickListe
                 jsonArrToJavaList();
                 break;
             case R.id.btn_java_to_json:
-//                javaToJson();
+                javaToJson();
                 break;
             case R.id.btn_java_list_to_json_arr:
 //                javaListToJsonArr();
                 break;
         }
+    }
+
+    private void javaToJson() {
+        // 获取或创建Java对象
+        JsonBean jsonBean = new JsonBean(104, "巨蟹", 250.0, "juxie.png");
+        // 生成json数据
+        String json = JSON.toJSONString(jsonBean);
+        // 显示数据
+        mtvOriginal.setText(jsonBean.toString());
+        mtvLast.setText(json);
     }
 
     private void jsonArrToJavaList() {

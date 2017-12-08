@@ -24,5 +24,6 @@
         <activity android:name=".activity.NativeJsonParseActivity"/>
         <activity android:name=".activity.GsonJsonParseActivity"/>
         <activity android:name=".activity.FastJsonParseActivity"/>
+        <activity android:name=".activity.XUtils3Activity"/>
     </application>
 </manifest>

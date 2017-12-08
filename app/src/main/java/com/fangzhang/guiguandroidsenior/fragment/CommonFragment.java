@@ -11,6 +11,7 @@ import com.fangzhang.guiguandroidsenior.activity.FastJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.GsonJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.NativeJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.OkHttpActivity;
+import com.fangzhang.guiguandroidsenior.activity.XUtils3Activity;
 import com.fangzhang.guiguandroidsenior.adapter.CommonFrameAdapter;
 import com.fangzhang.guiguandroidsenior.base.BaseFragment;
 
@@ -73,6 +74,9 @@ public class CommonFragment extends BaseFragment {
                     } else if (contentTitle.toLowerCase().equals("fastjson")) {
                         // 跳转到Json解析之FastJson解析方式的Activity
                         startActivity(new Intent(mContext,FastJsonParseActivity.class));
+                    } else if (contentTitle.toLowerCase().equals("xutils3")) {
+                        // 跳转到xUtils3功能的Activity
+                        startActivity(new Intent(mContext, XUtils3Activity.class));
                     }
                 }
             }

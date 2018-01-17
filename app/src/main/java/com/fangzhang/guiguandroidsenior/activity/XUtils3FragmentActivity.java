@@ -3,9 +3,12 @@ package com.fangzhang.guiguandroidsenior.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.TextView;
 
 import com.fangzhang.guiguandroidsenior.R;
+import com.fangzhang.guiguandroidsenior.fragment.DemoFragment;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -26,5 +29,10 @@ public class XUtils3FragmentActivity extends FragmentActivity{
         x.view().inject(XUtils3FragmentActivity.this);
         // 给mtvTitle设置文本
         mtvTitle.setText("在Fragment中使用注解初始化布局");
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fl_content,new DemoFragment());
+        transaction.commit();
     }
 }

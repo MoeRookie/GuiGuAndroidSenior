@@ -56,9 +56,56 @@ public class XUtils3NetActivity extends Activity{
                 downloadFile();
                 break;
             case R.id.btn_upload_file:
-                Toast.makeText(XUtils3NetActivity.this, "文件上传", Toast.LENGTH_SHORT).show();
+                uploadFile();
                 break;
         }
+    }
+
+    private void uploadFile() {
+        RequestParams entity = new RequestParams("http://192.168.1.185:8080/FileUpload/FileUploadServlet");
+        // 以表单方式上传
+        entity.setMultipart(true);
+        // 设置上传文件的路径
+        entity.addBodyParameter("File",new File(Environment.getExternalStorageDirectory()+"/FangZhang/480.mp4"),null,"oppo.mp4");
+        x.http().post(entity, new Callback.ProgressCallback<File>() {
+            @Override
+            public void onWaiting() {
+                Log.e(TAG, "onWaiting==");
+            }
+
+            @Override
+            public void onStarted() {
+                Log.e(TAG, "onStarted==");
+            }
+
+            @Override
+            public void onLoading(long total, long current, boolean isDownloading) {
+                mProgressBar.setMax((int) total);
+                mProgressBar.setProgress((int) current);
+                Log.e(TAG, "onLoading="+current+"/"+total+",isDownloading="+isDownloading);
+            }
+
+            @Override
+            public void onSuccess(File result) {
+                Log.e(TAG, "onSuccess=="+result.toString());
+                Toast.makeText(XUtils3NetActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.e(TAG, "onError=="+ex.getMessage());
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                Log.e(TAG, "onCancelled=="+cex.getMessage());
+            }
+
+            @Override
+            public void onFinished() {
+                Log.e(TAG, "onFinished==");
+            }
+        });
     }
 
     private void downloadFile() {

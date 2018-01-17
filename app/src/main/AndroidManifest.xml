@@ -26,5 +26,6 @@
         <activity android:name=".activity.FastJsonParseActivity"/>
         <activity android:name=".activity.XUtils3Activity"/>
         <activity android:name=".activity.XUtils3FragmentActivity"/>
+        <activity android:name=".activity.XUtils3NetActivity"/>
     </application>
 </manifest>

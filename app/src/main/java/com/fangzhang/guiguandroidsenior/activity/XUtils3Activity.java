@@ -33,12 +33,12 @@ public class XUtils3Activity extends Activity {
     private void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_annotation:
-                Toast.makeText(this, "注解模块被点击了", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(XUtils3Activity.this,XUtils3FragmentActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_net:
-                Toast.makeText(this, "网络模块被点击了", Toast.LENGTH_SHORT).show();
+                intent = new Intent(XUtils3Activity.this,XUtils3NetActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_image:
                 Toast.makeText(this, "加载一张图片模块被点击了", Toast.LENGTH_SHORT).show();

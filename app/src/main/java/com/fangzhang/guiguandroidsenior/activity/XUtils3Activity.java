@@ -1,6 +1,7 @@
 package com.fangzhang.guiguandroidsenior.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -33,6 +34,8 @@ public class XUtils3Activity extends Activity {
         switch (view.getId()) {
             case R.id.btn_annotation:
                 Toast.makeText(this, "注解模块被点击了", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(XUtils3Activity.this,XUtils3FragmentActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_net:
                 Toast.makeText(this, "网络模块被点击了", Toast.LENGTH_SHORT).show();

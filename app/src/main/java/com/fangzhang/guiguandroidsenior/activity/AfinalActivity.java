@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.fangzhang.guiguandroidsenior.R;
 
 import net.tsz.afinal.FinalActivity;
+import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.annotation.view.ViewInject;
 
 /**
@@ -40,7 +41,11 @@ public class AfinalActivity extends FinalActivity {
         mtvTitle.setText("Afinal");
     }
     public void onLoadImageClicked(View view){
-        Toast.makeText(AfinalActivity.this, "加载图片", Toast.LENGTH_SHORT).show();
+        FinalBitmap finalBitmap = FinalBitmap.create(AfinalActivity.this);
+        // 网络请求图片时默认显示的图片
+        finalBitmap.configLoadfailImage(R.drawable.atguigu_logo);
+        // 开始加载图片
+        finalBitmap.display(mivFinal,"http://img5.mtime.cn/mg/2016/10/11/160347.30270341.jpg");
     }
     public void onGetTextClicked(View view){
         Toast.makeText(AfinalActivity.this, "获取文本", Toast.LENGTH_SHORT).show();

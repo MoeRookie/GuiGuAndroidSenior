@@ -24,7 +24,7 @@
         android:text="Afinal下载文件"
         android:textAllCaps="false"/>
     <Button
-        android:id="@+id/btn_update_file"
+        android:id="@+id/btn_upload_file"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Afinal上传文件"

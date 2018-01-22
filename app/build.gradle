@@ -30,4 +30,5 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     compile 'com.google.code.gson:gson:2.8.2'
     compile project(':xutils')
+    compile files('libs/afinal_0.5.1_bin.jar')
 }

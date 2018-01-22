@@ -27,5 +27,6 @@
         <activity android:name=".activity.XUtils3Activity"/>
         <activity android:name=".activity.XUtils3FragmentActivity"/>
         <activity android:name=".activity.XUtils3NetActivity"/>
+        <activity android:name=".activity.AfinalActivity"/>
     </application>
 </manifest>

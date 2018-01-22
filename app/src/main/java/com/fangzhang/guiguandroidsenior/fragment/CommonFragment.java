@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.fangzhang.guiguandroidsenior.R;
+import com.fangzhang.guiguandroidsenior.activity.AfinalActivity;
 import com.fangzhang.guiguandroidsenior.activity.FastJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.GsonJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.NativeJsonParseActivity;
@@ -41,6 +42,7 @@ public class CommonFragment extends BaseFragment {
                 "Gson",
                 "FastJson",
                 "xUtils3",
+                "Afinal",
                 "Retrofit2",
                 "Fresco",
                 "Glide",
@@ -77,6 +79,9 @@ public class CommonFragment extends BaseFragment {
                     } else if (contentTitle.toLowerCase().equals("xutils3")) {
                         // 跳转到xUtils3功能的Activity
                         startActivity(new Intent(mContext, XUtils3Activity.class));
+                    } else if (contentTitle.toLowerCase().equals("afinal")) {
+                        // 跳转到Afinal功能的Activity
+                        startActivity(new Intent(mContext,AfinalActivity.class));
                     }
                 }
             }

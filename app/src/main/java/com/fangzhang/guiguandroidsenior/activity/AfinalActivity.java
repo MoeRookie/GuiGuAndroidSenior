@@ -1,5 +1,7 @@
 package com.fangzhang.guiguandroidsenior.activity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +15,8 @@ import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.annotation.view.ViewInject;
 import net.tsz.afinal.http.AjaxCallBack;
+
+import java.io.File;
 
 /**
  * Created by Administrator on 2018/1/22.
@@ -74,7 +78,29 @@ public class AfinalActivity extends FinalActivity {
         });
     }
     public void onLoadFileClicked(View view){
-        Toast.makeText(AfinalActivity.this, "下载文件", Toast.LENGTH_SHORT).show();
+        FinalHttp finalHttp = new FinalHttp();
+        String url = "http://vfx.mtime.cn/Video/2016/10/11/mp4/161011092841270064_480.mp4";
+        String target = Environment.getExternalStorageDirectory() + "/FangZhang/" + "final.mp4";
+        finalHttp.download(url, target, new AjaxCallBack<File>() {
+            @Override
+            public void onStart() {
+                mtvResult.setText("开始下载");
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(File file) {
+                mtvResult.setText("下载成功");
+                super.onSuccess(file);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                mtvResult.setText("下载失败");
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("failure", strMsg);
+            }
+        });
     }
     public void onUploadFileClicked(View view){
         Toast.makeText(AfinalActivity.this, "上传文件", Toast.LENGTH_SHORT).show();

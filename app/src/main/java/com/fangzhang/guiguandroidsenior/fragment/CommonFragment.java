@@ -12,6 +12,7 @@ import com.fangzhang.guiguandroidsenior.activity.FastJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.GsonJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.NativeJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.OkHttpActivity;
+import com.fangzhang.guiguandroidsenior.activity.VolleyActivity;
 import com.fangzhang.guiguandroidsenior.activity.XUtils3Activity;
 import com.fangzhang.guiguandroidsenior.adapter.CommonFrameAdapter;
 import com.fangzhang.guiguandroidsenior.base.BaseFragment;
@@ -43,12 +44,12 @@ public class CommonFragment extends BaseFragment {
                 "FastJson",
                 "xUtils3",
                 "Afinal",
+                "Volley",
                 "Retrofit2",
                 "Fresco",
                 "Glide",
                 "greenDao",
                 "RxJava",
-                "volley",
                 "picasso",
                 "evenBus",
                 "jcvideoplayer",
@@ -82,6 +83,9 @@ public class CommonFragment extends BaseFragment {
                     } else if (contentTitle.toLowerCase().equals("afinal")) {
                         // 跳转到Afinal功能的Activity
                         startActivity(new Intent(mContext,AfinalActivity.class));
+                    } else if (contentTitle.toLowerCase().equals("volley")) {
+                        // 跳转到Volley功能的Activity
+                        startActivity(new Intent(mContext,VolleyActivity.class));
                     }
                 }
             }

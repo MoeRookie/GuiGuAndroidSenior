@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -15,6 +17,9 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fangzhang.guiguandroidsenior.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/1/22.
@@ -73,7 +78,7 @@ public class VolleyActivity extends Activity implements View.OnClickListener{
                 getRequest();
                 break;
             case R.id.btn_post:
-                Toast.makeText(VolleyActivity.this, "Post请求", Toast.LENGTH_SHORT).show();
+                postRequest();
                 break;
             case R.id.btn_get_json:
                 Toast.makeText(VolleyActivity.this, "GetJson", Toast.LENGTH_SHORT).show();
@@ -90,6 +95,32 @@ public class VolleyActivity extends Activity implements View.OnClickListener{
             default:
                 break;
         }
+    }
+    private void postRequest() {
+        // 1. 创建一个请求队列
+        RequestQueue requestQueue = Volley.newRequestQueue(VolleyActivity.this);
+        // 2. 创建一个请求
+        String url = "http://api.m.mtime.cn/PageSubArea/TrailerList.api";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                mtvResult.setText(s);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                mtvResult.setText("请求失败:"+volleyError);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+//                map.put("key", "value");
+                return map;
+            }
+        };
+        // 3. 将请求添加到请求队列中
+        requestQueue.add(stringRequest);
     }
     private void getRequest() {
         // 1. 创建一个请求队列

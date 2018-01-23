@@ -14,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
@@ -92,7 +93,7 @@ public class VolleyActivity extends Activity implements View.OnClickListener{
                 requestImage();
                 break;
             case R.id.btn_image_loader:
-                Toast.makeText(VolleyActivity.this, "ImageLoader", Toast.LENGTH_SHORT).show();
+                loadImage();
                 break;
             case R.id.btn_network_image_view:
                 Toast.makeText(VolleyActivity.this, "NetworkImage", Toast.LENGTH_SHORT).show();
@@ -100,6 +101,29 @@ public class VolleyActivity extends Activity implements View.OnClickListener{
             default:
                 break;
         }
+    }
+
+    private void loadImage() {
+        // 1. 创建一个请求队列
+        RequestQueue requestQueue = Volley.newRequestQueue(VolleyActivity.this);
+        // 2. 创建ImageLoader
+        ImageLoader imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
+            @Override
+            public Bitmap getBitmap(String s) {
+                return null;
+            }
+
+            @Override
+            public void putBitmap(String s, Bitmap bitmap) {
+
+            }
+        });
+        // 3. 加载图片
+        String url = "http://img5.mtime.cn/mg/2016/10/11/160347.30270341.jpg";
+        mivResult.setVisibility(View.VISIBLE);
+        ImageLoader.ImageListener imageListener = imageLoader.getImageListener(mivResult,R.drawable.atguigu_logo,R.drawable.atguigu_logo);
+        imageLoader.get(url,imageListener);
+
     }
 
     private void requestImage() {

@@ -8,7 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.fangzhang.guiguandroidsenior.R;
 
 /**
@@ -65,7 +70,7 @@ public class VolleyActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_get:
-                Toast.makeText(VolleyActivity.this, "Get请求", Toast.LENGTH_SHORT).show();
+                getRequest();
                 break;
             case R.id.btn_post:
                 Toast.makeText(VolleyActivity.this, "Post请求", Toast.LENGTH_SHORT).show();
@@ -85,5 +90,26 @@ public class VolleyActivity extends Activity implements View.OnClickListener{
             default:
                 break;
         }
+    }
+    private void getRequest() {
+        // 1. 创建一个请求队列
+        RequestQueue requestQueue = Volley.newRequestQueue(VolleyActivity.this);
+        // 2. 创建一个请求
+        String url = "http://api.m.mtime.cn/PageSubArea/TrailerList.api";
+        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+            // 正确接收数据时回调
+            @Override
+            public void onResponse(String s) {
+                mtvResult.setText(s);
+            }
+            // 发生异常后的监听回调
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                mtvResult.setText("加载失败:"+volleyError);
+            }
+        });
+        // 3. 将创建的请求添加到请求队列中
+        requestQueue.add(stringRequest);
     }
 }

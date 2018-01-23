@@ -1,6 +1,7 @@
 package com.fangzhang.guiguandroidsenior.activity;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
@@ -87,7 +89,7 @@ public class VolleyActivity extends Activity implements View.OnClickListener{
                 requestJson();
                 break;
             case R.id.btn_image_request:
-                Toast.makeText(VolleyActivity.this, "ImageRequest", Toast.LENGTH_SHORT).show();
+                requestImage();
                 break;
             case R.id.btn_image_loader:
                 Toast.makeText(VolleyActivity.this, "ImageLoader", Toast.LENGTH_SHORT).show();
@@ -99,6 +101,30 @@ public class VolleyActivity extends Activity implements View.OnClickListener{
                 break;
         }
     }
+
+    private void requestImage() {
+        // 1. 创建一个请求队列
+        RequestQueue requestQueue = Volley.newRequestQueue(VolleyActivity.this);
+        // 2. 创建一个请求
+        String url = "http://img5.mtime.cn/mg/2016/10/11/160347.30270341.jpg";
+        ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
+            // 正确接收到图片
+            @Override
+            public void onResponse(Bitmap bitmap) {
+                mivResult.setVisibility(View.VISIBLE);
+                mivResult.setImageBitmap(bitmap);
+            }
+        }, 0, 0, Bitmap.Config.RGB_565, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                mivResult.setVisibility(View.VISIBLE);
+                mivResult.setImageResource(R.drawable.atguigu_logo);
+            }
+        });
+        // 3. 将请求添加到请求队列中
+        requestQueue.add(imageRequest);
+    }
+
     private void requestJson() {
         // 1. 创建一个请求队列
         RequestQueue requestQueue = Volley.newRequestQueue(VolleyActivity.this);

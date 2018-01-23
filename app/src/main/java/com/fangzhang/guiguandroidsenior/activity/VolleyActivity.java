@@ -21,6 +21,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fangzhang.guiguandroidsenior.R;
+import com.fangzhang.guiguandroidsenior.utils.BitmapCache;
 
 import org.json.JSONObject;
 
@@ -107,17 +108,18 @@ public class VolleyActivity extends Activity implements View.OnClickListener{
         // 1. 创建一个请求队列
         RequestQueue requestQueue = Volley.newRequestQueue(VolleyActivity.this);
         // 2. 创建ImageLoader
-        ImageLoader imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
-            @Override
-            public Bitmap getBitmap(String s) {
-                return null;
-            }
-
-            @Override
-            public void putBitmap(String s, Bitmap bitmap) {
-
-            }
-        });
+//        ImageLoader imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
+//            @Override
+//            public Bitmap getBitmap(String s) {
+//                return null;
+//            }
+//
+//            @Override
+//            public void putBitmap(String s, Bitmap bitmap) {
+//
+//            }
+//        });
+        ImageLoader imageLoader = new ImageLoader(requestQueue, new BitmapCache());
         // 3. 加载图片
         String url = "http://img5.mtime.cn/mg/2016/10/11/160347.30270341.jpg";
         mivResult.setVisibility(View.VISIBLE);

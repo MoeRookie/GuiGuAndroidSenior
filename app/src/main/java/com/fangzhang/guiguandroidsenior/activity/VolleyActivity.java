@@ -97,11 +97,26 @@ public class VolleyActivity extends Activity implements View.OnClickListener{
                 loadImage();
                 break;
             case R.id.btn_network_image_view:
-                Toast.makeText(VolleyActivity.this, "NetworkImage", Toast.LENGTH_SHORT).show();
+                testNetworkImageView();
                 break;
             default:
                 break;
         }
+    }
+
+    private void testNetworkImageView() {
+        // 让控件显示
+        mnivNetwork.setVisibility(View.VISIBLE);
+        // 1. 创建一个请求队列
+        RequestQueue requestQueue = Volley.newRequestQueue(VolleyActivity.this);
+        // 2. 创建一个ImageLoader
+        ImageLoader imageLoader = new ImageLoader(requestQueue, new BitmapCache());
+        // 默认图片和异常图片设置
+        mnivNetwork.setDefaultImageResId(R.drawable.atguigu_logo);
+        mnivNetwork.setErrorImageResId(R.drawable.atguigu_logo);
+        // 3. 加载图片
+        String url = "http://img5.mtime.cn/mg/2016/10/11/160347.30270341.jpg";
+        mnivNetwork.setImageUrl(url,imageLoader);
     }
 
     private void loadImage() {

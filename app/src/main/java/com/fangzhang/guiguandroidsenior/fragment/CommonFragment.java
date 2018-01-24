@@ -9,6 +9,7 @@ import android.widget.ListView;
 import com.fangzhang.guiguandroidsenior.R;
 import com.fangzhang.guiguandroidsenior.activity.AfinalActivity;
 import com.fangzhang.guiguandroidsenior.activity.ButterKnifeActivity;
+import com.fangzhang.guiguandroidsenior.activity.EventBusActivity;
 import com.fangzhang.guiguandroidsenior.activity.FastJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.GsonJsonParseActivity;
 import com.fangzhang.guiguandroidsenior.activity.NativeJsonParseActivity;
@@ -47,6 +48,7 @@ public class CommonFragment extends BaseFragment {
                 "Afinal",
                 "Volley",
                 "ButterKnife",
+                "EventBus",
                 "Retrofit2",
                 "Fresco",
                 "Glide",
@@ -91,6 +93,9 @@ public class CommonFragment extends BaseFragment {
                     } else if (contentTitle.toLowerCase().equals("butterknife")) {
                         // 跳转到ButterKnife功能的Activity
                         startActivity(new Intent(mContext,ButterKnifeActivity.class));
+                    } else if (contentTitle.toLowerCase().equals("eventbus")) {
+                        // 跳转到EventBus功能的Activity
+                        startActivity(new Intent(mContext,EventBusActivity.class));
                     }
                 }
             }

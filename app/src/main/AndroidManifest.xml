@@ -31,5 +31,7 @@
         <activity android:name=".activity.AfinalActivity"/>
         <activity android:name=".activity.VolleyActivity"/>
         <activity android:name=".activity.ButterKnifeActivity"/>
+        <activity android:name=".activity.EventBusActivity"/>
+        <activity android:name=".activity.EventBusSendActivity"/>
     </application>
 </manifest>

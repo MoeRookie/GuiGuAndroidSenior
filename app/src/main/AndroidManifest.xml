@@ -30,5 +30,6 @@
         <activity android:name=".activity.XUtils3NetActivity"/>
         <activity android:name=".activity.AfinalActivity"/>
         <activity android:name=".activity.VolleyActivity"/>
+        <activity android:name=".activity.ButterKnifeActivity"/>
     </application>
 </manifest>

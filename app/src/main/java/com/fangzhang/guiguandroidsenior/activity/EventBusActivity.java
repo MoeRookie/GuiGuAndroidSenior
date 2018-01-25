@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.fangzhang.guiguandroidsenior.R;
 import com.fangzhang.guiguandroidsenior.bean.MessageEvent;
+import com.fangzhang.guiguandroidsenior.bean.StickEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,7 +44,10 @@ public class EventBusActivity extends Activity {
         mbtnSendSticky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // 2. 发送粘性事件
+                EventBus.getDefault().postSticky(new StickEvent("发送过来的粘性事件"));
+                // 跳转到发送数据页面
+                startActivity(new Intent(EventBusActivity.this,EventBusSendActivity.class));
             }
         });
     }

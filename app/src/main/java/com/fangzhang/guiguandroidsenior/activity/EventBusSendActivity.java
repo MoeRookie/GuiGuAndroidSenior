@@ -8,8 +8,11 @@ import android.widget.TextView;
 
 import com.fangzhang.guiguandroidsenior.R;
 import com.fangzhang.guiguandroidsenior.bean.MessageEvent;
+import com.fangzhang.guiguandroidsenior.bean.StickEvent;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by Administrator on 2018/1/24.
@@ -19,6 +22,7 @@ public class EventBusSendActivity extends Activity {
     private Button mbtnSendMain;
     private Button mbtnReceiveSticky;
     private TextView mtvResult;
+    private boolean isFirst = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +46,19 @@ public class EventBusSendActivity extends Activity {
         mbtnReceiveSticky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (isFirst) {
+                    isFirst = false;
+                    // 4. 注册
+                    EventBus.getDefault().register(EventBusSendActivity.this);
+                }
             }
         });
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void receiveStickyEvent(StickEvent event) {
+        // 显示接收到的数据
+        mtvResult.setText(event.name);
+    }
     private void initData() {
         mtvTitle.setText("EventBus发送数据页面");
     }

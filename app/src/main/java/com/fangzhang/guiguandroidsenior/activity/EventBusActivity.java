@@ -8,6 +8,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.fangzhang.guiguandroidsenior.R;
+import com.fangzhang.guiguandroidsenior.bean.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by Administrator on 2018/1/24.
@@ -45,6 +50,8 @@ public class EventBusActivity extends Activity {
 
     private void initData() {
         mtvTitle.setText("EventBus");
+        // 1. 注册广播
+        EventBus.getDefault().register(EventBusActivity.this);
     }
 
     private void initViews() {
@@ -52,5 +59,17 @@ public class EventBusActivity extends Activity {
         mbtnSend = findViewById(R.id.btn_send);
         mbtnSendSticky = findViewById(R.id.btn_send_sticky);
         mtvResult = findViewById(R.id.tv_result);
+    }
+    // 5. 接收消息 - 从主线程发来
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiveMessage(MessageEvent event){
+        // 显示接收到的消息
+        mtvResult.setText(event.name);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 2. 解注册
+        EventBus.getDefault().unregister(EventBusActivity.this);
     }
 }

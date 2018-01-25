@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.fangzhang.guiguandroidsenior.R;
+import com.fangzhang.guiguandroidsenior.bean.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by Administrator on 2018/1/24.
@@ -30,7 +33,9 @@ public class EventBusSendActivity extends Activity {
         mbtnSendMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // 4. 发送消息
+                EventBus.getDefault().post(new MessageEvent("主线程发送过来的数据 . . ."));
+                finish();
             }
         });
         // 接收粘性事件数据按钮的点击事件处理
